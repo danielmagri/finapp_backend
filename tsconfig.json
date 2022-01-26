@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "baseUrl": "src",
+        "target": "es6",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "dist",
+        "rootDirs": [
+            "src"
+        ],
+        "paths": {
+            "@/*": [
+                "*"
+            ]
+        }
+    },
+    "include": [
+        "src",
+        "tests"
+    ],
+    "exclude": [],
+    "lib": [
+        "es2019"
+    ]
+}
