@@ -14,10 +14,10 @@ export class NumberValidator implements Validator {
       return Invalidation.type()
     }
     if (this.params.minLength) {
-      if (input < this.params.minLength) { return Invalidation.minLength(this.params.minLength) }
+      if (input <= this.params.minLength) { return Invalidation.minLength(this.params.minLength) }
     }
     if (this.params.maxLength) {
-      if (input > this.params.maxLength) { return Invalidation.maxLength(this.params.maxLength) }
+      if (input >= this.params.maxLength) { return Invalidation.maxLength(this.params.maxLength) }
     }
   }
 }

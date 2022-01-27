@@ -6,5 +6,18 @@ export class TransactionEntity {
   id!: number
 
   @Column({ name: 'value' })
-  value!: string
+  value!: number
+
+  @Column({ name: 'type' })
+  type!: number
+
+  @Column({ name: 'date' })
+  date!: Date
+
+  @Column({ name: 'createdAt' })
+  createdAt!: Date
+
+  @Column({ name: 'updatedAt' })
+  updatedAt!: Date
+
 }

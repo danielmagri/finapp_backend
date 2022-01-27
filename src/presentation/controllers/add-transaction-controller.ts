@@ -4,6 +4,7 @@ import { ok } from '@/presentation/helpers'
 import { IdentifiedError } from '@/domain/errors';
 import { AddTransaction } from '@/domain/usecases';
 import { Validation } from '@/validation/protocols';
+import moment from 'moment';
 
 export class AddTransactionController implements Http.Controller {
     constructor(
@@ -17,10 +18,10 @@ export class AddTransactionController implements Http.Controller {
             const badParams = await this.validation.validate(request)
             if (badParams) return new HttpError.BadRequest(badParams)
 
-            console.log(request)
-
             const result = await this.addTransaction.add({
-                value: request.value
+                type: request.type,
+                value: request.value,
+                date: moment(request.date).toDate()
             })
 
             return ok(result)
@@ -39,7 +40,9 @@ export class AddTransactionController implements Http.Controller {
 
 export namespace AddTransactionController {
     export type Request = {
-        value: string
+        value: number
+        type: number
+        date: Date
     }
 
     export type Response = AddTransaction.Result

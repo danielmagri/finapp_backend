@@ -6,7 +6,9 @@ export interface AddTransaction {
 
 export namespace AddTransaction {
     export type Params = {
-        value: string
+        value: number
+        type: Transaction.TransactionType
+        date: Date
     }
 
     export type Result = Transaction.Model
