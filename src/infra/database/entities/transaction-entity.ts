@@ -5,7 +5,7 @@ export class TransactionEntity {
   @PrimaryGeneratedColumn()
   id!: number
 
-  @Column({ name: 'value' })
+  @Column({ name: 'value', type: "float", precision: 2 })
   value!: number
 
   @Column({ name: 'type' })

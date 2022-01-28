@@ -1,11 +1,11 @@
 import { Invalidation } from '@/validation/helpers'
 import { Validator } from '@/validation/protocols'
 
+import validator from 'validator'
+
 export class CurrencyValidator<T> implements Validator {
     async validate(input: number): Promise<void | string> {
-        var regexp = /^\d+\.\d{0,2}$/;
-
-        if (!regexp.test(input.toString())) {
+        if (!validator.isCurrency(input.toString(), { allow_negatives: false, digits_after_decimal: [1, 2] })) {
             return Invalidation.pattern()
         }
     }
