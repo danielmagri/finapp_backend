@@ -10,8 +10,6 @@ export const makeAddTransactionValidation = (): CompositeValidation<AddTransacti
     const currencyValidator = new CurrencyValidator()
     const typeValidator = new ValuesValidator(Transaction.TransactionType)
 
-    Transaction.TransactionType
-
     return new CompositeValidation([
         new RequiredValidation(requiredValidator, ['value', 'type', 'date']),
         new ObjectKeyValidation(numberValidator, 'value'),

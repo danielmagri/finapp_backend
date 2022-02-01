@@ -19,6 +19,12 @@ export namespace DatabaseError {
     }
   }
 
+  export class UpdateFail extends DatabaseError {
+    constructor (message = 'Database document update failed') {
+      super('UpdateFail', message)
+    }
+  }
+
   export class RemoveFail extends DatabaseError {
     constructor (message = 'Database document remove failed') {
       super('RemoveFail', message)
