@@ -5,5 +5,5 @@ import { makeTransactionDbRepository } from '@/main/factories/infras'
 
 export const makeFindTransactions = (): FindTransactions => {
   const transactionDbRepository = makeTransactionDbRepository()
-    return new FindTransactionsImpl(transactionDbRepository)
+  return new FindTransactionsImpl(transactionDbRepository)
 }

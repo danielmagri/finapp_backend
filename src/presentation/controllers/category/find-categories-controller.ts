@@ -2,17 +2,17 @@ import { Http } from '@/presentation/protocols';
 import { HttpError } from '@/presentation/errors'
 import { ok } from '@/presentation/helpers'
 import { IdentifiedError } from '@/domain/errors';
-import { FindTransactions } from '@/domain/usecases';
+import { FindCategories } from '@/domain/usecases';
 
-export class FindTransactionsController implements Http.Controller {
+export class FindCategoriesController implements Http.Controller {
     constructor(
-        private readonly findTransactions: FindTransactions
+        private readonly findCategories: FindCategories
     ) { }
 
 
-    async handle(): Promise<Http.Response<FindTransactionsController.Response>> {
+    async handle(): Promise<Http.Response<FindCategoriesController.Response>> {
         try {
-            const result = await this.findTransactions.find()
+            const result = await this.findCategories.find()
 
             return ok(result)
         } catch (error) {
@@ -27,6 +27,6 @@ export class FindTransactionsController implements Http.Controller {
 
 }
 
-export namespace FindTransactionsController {
-    export type Response = FindTransactions.Result
+export namespace FindCategoriesController {
+    export type Response = FindCategories.Result
 }
