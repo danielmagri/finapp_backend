@@ -20,12 +20,12 @@ export class TransactionDbRepository implements AddTransactionRepository, FindTr
         }
     }
 
-    async findTransaction(): Promise<FindTransactionsRepository.Result> {
+    async findTransaction(params: FindTransactionsRepository.Params): Promise<FindTransactionsRepository.Result> {
         try {
             const repo = this.database.getRepository(TransactionEntity)
-            const result = await repo.find()
+            const [result, count] = await repo.findAndCount({ order: { date: 'ASC' }, take: params.per_page, skip: params.per_page * (params.page - 1) })
 
-            return result
+            return { page: params.page, per_page: params.per_page, last_page: Math.ceil(count / params.per_page), total_itens: count, data: result }
         } catch (error) {
             throw new DatabaseError.NotFound(String(error.stack))
         }

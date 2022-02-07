@@ -6,8 +6,8 @@ export class FindTransactionsImpl implements FindTransactions {
         private readonly findTransactionsRepository: FindTransactionsRepository
     ) { }
 
-    async find(): Promise<FindTransactions.Result> {
-        return await this.findTransactionsRepository.findTransaction()
+    async find(params: FindTransactions.Params): Promise<FindTransactions.Result> {
+        return await this.findTransactionsRepository.findTransaction(params)
     }
 
 }

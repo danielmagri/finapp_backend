@@ -15,7 +15,7 @@ export class BudgetEntity {
     @Column({ name: 'year' })
     year!: number
 
-    @ManyToOne(() => CategoryEntity, { eager: true, nullable: false })
+    @ManyToOne(() => CategoryEntity, { nullable: false })
     category!: CategoryEntity
 
     @Column({ name: 'createdAt' })

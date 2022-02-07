@@ -1,9 +1,11 @@
-import { Transaction } from '@/domain/models'
+import { Pagination, Transaction } from '@/domain/models'
 
 export interface FindTransactions {
-    find: () => Promise<FindTransactions.Result>
+    find: (params: FindTransactions.Params) => Promise<FindTransactions.Result>
 }
 
 export namespace FindTransactions {
-    export type Result = Transaction.Model[]
+    export type Params = Pagination.Request
+
+    export type Result = Pagination.Result<Transaction.Model>
 }
