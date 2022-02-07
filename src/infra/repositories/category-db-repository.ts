@@ -1,11 +1,11 @@
 import { DatabaseError } from '@/data/errors';
-import { AddCategoryRepository, FindCategoriesRepository } from '@/data/protocols';
+import { AddCategoryRepository, FindCategoriesRepository, UpdateCategoryRepository } from '@/data/protocols';
 import { Category } from '@/domain/models';
 import { FindCategories } from '@/domain/usecases';
 import { MySqlDatasource } from '@/infra/database/datasources/mysql-datasource';
 import { CategoryEntity } from '../database/entities';
 
-export class CategoryDbRepository implements AddCategoryRepository, FindCategoriesRepository {
+export class CategoryDbRepository implements AddCategoryRepository, FindCategoriesRepository, UpdateCategoryRepository {
     constructor(
         private readonly database: MySqlDatasource
     ) { }
@@ -29,6 +29,20 @@ export class CategoryDbRepository implements AddCategoryRepository, FindCategori
             return result
         } catch (error) {
             throw new DatabaseError.NotFound(String(error.stack))
+        }
+    }
+
+    async updateCategory(params: UpdateCategoryRepository.Params): Promise<UpdateCategoryRepository.Result> {
+        try {
+            const repo = this.database.getRepository(CategoryEntity)
+
+            Object.keys(params).forEach(key => params[key] === undefined && delete params[key])
+
+            const result = await repo.update(params.id, params)
+
+            return result.affected
+        } catch (error) {
+            throw new DatabaseError.UpdateFail(String(error.stack))
         }
     }
 }

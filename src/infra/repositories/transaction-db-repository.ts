@@ -31,7 +31,7 @@ export class TransactionDbRepository implements AddTransactionRepository, FindTr
         }
     }
 
-    async updateTransaction(params: UpdateTransactionRepository.Params): Promise<DeleteTransactionRepository.Result> {
+    async updateTransaction(params: UpdateTransactionRepository.Params): Promise<UpdateTransactionRepository.Result> {
         try {
             const repo = this.database.getRepository(TransactionEntity)
 
