@@ -8,6 +8,9 @@ export class CategoryEntity {
     @Column({ name: 'name' })
     name!: string
 
+    @Column({ name: 'hidden', default: false })
+    hidden!: boolean
+
     @Column({ name: 'createdAt' })
     createdAt!: Date
 

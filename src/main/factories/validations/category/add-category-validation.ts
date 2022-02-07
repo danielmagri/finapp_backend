@@ -1,7 +1,6 @@
 import { CompositeValidation, ObjectKeyValidation, RequiredValidation } from '@/validation/validations'
-import { ValuesValidator, RequiredValidator, TypeValidator, DateValidator, CurrencyValidator } from '@/validation/validators'
+import { RequiredValidator, TypeValidator } from '@/validation/validators'
 import { AddCategoryController } from '@/presentation/controllers'
-import { Category } from '@/domain/models'
 
 export const makeAddCategoryValidation = (): CompositeValidation<AddCategoryController.Request> => {
     const requiredValidator = new RequiredValidator()

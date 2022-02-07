@@ -1,17 +1,17 @@
 import { DatabaseError } from '@/data/errors';
-import { AddCategoryRepository, DeleteCategoryRepository, FindCategoriesRepository, UpdateCategoryRepository } from '@/data/protocols';
-import { FindCategories } from '@/domain/usecases';
+import { AddBudgetRepository, DeleteBudgetRepository, FindBudgetsRepository, UpdateBudgetRepository } from '@/data/protocols';
+import { FindBudgets } from '@/domain/usecases';
 import { MySqlDatasource } from '@/infra/database/datasources/mysql-datasource';
-import { CategoryEntity } from '../database/entities';
+import { BudgetEntity } from '../database/entities';
 
-export class CategoryDbRepository implements AddCategoryRepository, FindCategoriesRepository, UpdateCategoryRepository, DeleteCategoryRepository {
+export class BudgetDbRepository implements AddBudgetRepository, FindBudgetsRepository, UpdateBudgetRepository, DeleteBudgetRepository {
     constructor(
         private readonly database: MySqlDatasource
     ) { }
 
-    async addCategory(params: AddCategoryRepository.Params): Promise<AddCategoryRepository.Result> {
+    async addBudget(params: AddBudgetRepository.Params): Promise<AddBudgetRepository.Result> {
         try {
-            const repo = this.database.getRepository(CategoryEntity)
+            const repo = this.database.getRepository(BudgetEntity)
             const result = await repo.insert(params)
 
             return { ...result.generatedMaps[0]['id'], ...params }
@@ -20,9 +20,9 @@ export class CategoryDbRepository implements AddCategoryRepository, FindCategori
         }
     }
 
-    async findCategory(): Promise<FindCategories.Result> {
+    async findBudget(): Promise<FindBudgets.Result> {
         try {
-            const repo = this.database.getRepository(CategoryEntity)
+            const repo = this.database.getRepository(BudgetEntity)
             const result = await repo.find()
 
             return result
@@ -31,9 +31,9 @@ export class CategoryDbRepository implements AddCategoryRepository, FindCategori
         }
     }
 
-    async updateCategory(params: UpdateCategoryRepository.Params): Promise<UpdateCategoryRepository.Result> {
+    async updateBudget(params: UpdateBudgetRepository.Params): Promise<UpdateBudgetRepository.Result> {
         try {
-            const repo = this.database.getRepository(CategoryEntity)
+            const repo = this.database.getRepository(BudgetEntity)
 
             Object.keys(params).forEach(key => params[key] === undefined && delete params[key])
 
@@ -45,9 +45,9 @@ export class CategoryDbRepository implements AddCategoryRepository, FindCategori
         }
     }
 
-    async deleteCategory(params: DeleteCategoryRepository.Params): Promise<DeleteCategoryRepository.Result> {
+    async deleteBudget(params: DeleteBudgetRepository.Params): Promise<DeleteBudgetRepository.Result> {
         try {
-            const repo = this.database.getRepository(CategoryEntity)
+            const repo = this.database.getRepository(BudgetEntity)
             const result = await repo.delete(params)
 
             return result.affected
