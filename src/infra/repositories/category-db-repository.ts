@@ -1,11 +1,11 @@
 import { DatabaseError } from '@/data/errors';
-import { AddCategoryRepository, FindCategoriesRepository, UpdateCategoryRepository } from '@/data/protocols';
+import { AddCategoryRepository, DeleteCategoryRepository, FindCategoriesRepository, UpdateCategoryRepository } from '@/data/protocols';
 import { Category } from '@/domain/models';
 import { FindCategories } from '@/domain/usecases';
 import { MySqlDatasource } from '@/infra/database/datasources/mysql-datasource';
 import { CategoryEntity } from '../database/entities';
 
-export class CategoryDbRepository implements AddCategoryRepository, FindCategoriesRepository, UpdateCategoryRepository {
+export class CategoryDbRepository implements AddCategoryRepository, FindCategoriesRepository, UpdateCategoryRepository, DeleteCategoryRepository {
     constructor(
         private readonly database: MySqlDatasource
     ) { }
@@ -43,6 +43,17 @@ export class CategoryDbRepository implements AddCategoryRepository, FindCategori
             return result.affected
         } catch (error) {
             throw new DatabaseError.UpdateFail(String(error.stack))
+        }
+    }
+
+    async deleteCategory(params: DeleteCategoryRepository.Params): Promise<DeleteCategoryRepository.Result> {
+        try {
+            const repo = this.database.getRepository(CategoryEntity)
+            const result = await repo.delete(params)
+
+            return result.affected
+        } catch (error) {
+            throw new DatabaseError.RemoveFail(String(error.stack))
         }
     }
 }
