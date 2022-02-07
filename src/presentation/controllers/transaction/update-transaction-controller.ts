@@ -22,7 +22,8 @@ export class UpdateTransactionController implements Http.Controller {
                 id: request.id,
                 type: request.type,
                 value: request.value,
-                date: request.date === undefined ? undefined : moment(request.date).toDate()
+                date: request.date === undefined ? undefined : moment(request.date).toDate(),
+                categoryId: request.categoryId
             })
 
             return ok(result)
@@ -45,6 +46,7 @@ export namespace UpdateTransactionController {
         value?: number
         type?: number
         date?: Date
+        categoryId?: number
     }
 
     export type Response = UpdateTransaction.Result

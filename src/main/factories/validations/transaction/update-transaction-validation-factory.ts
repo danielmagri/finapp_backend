@@ -12,6 +12,7 @@ export const makeUpdateTransactionValidation = (): CompositeValidation<UpdateTra
     return new CompositeValidation([
         new ObjectKeyValidation(numberValidator, 'type'),
         new ObjectKeyValidation(numberValidator, 'value'),
+        new ObjectKeyValidation(numberValidator, 'categoryId'),
         new ObjectKeyValidation(typeValidator, 'type'),
         new ObjectKeyValidation(dateValidator, 'date'),
         new ObjectKeyValidation(currencyValidator, 'value'),

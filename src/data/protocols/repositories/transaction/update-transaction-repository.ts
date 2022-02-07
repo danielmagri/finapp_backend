@@ -10,6 +10,7 @@ export namespace UpdateTransactionRepository {
         value?: number
         type?: number
         date?: Date
+        categoryId?: number
         updatedAt: Date
     }
     export type Result = UpdateTransaction.Result

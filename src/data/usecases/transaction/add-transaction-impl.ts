@@ -7,7 +7,9 @@ export class AddTransactionImpl implements AddTransaction {
     ) { }
 
     async add(params: AddTransaction.Params): Promise<AddTransaction.Result> {
-        const input = { ...params, createdAt: new Date(), updatedAt: new Date() }
+        const category = { id: params.categoryId }
+        delete params.categoryId
+        const input = { ...params, category: category, createdAt: new Date(), updatedAt: new Date() }
 
         return await this.addTransactionRepository.addTransaction(input)
     }

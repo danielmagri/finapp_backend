@@ -21,7 +21,8 @@ export class AddTransactionController implements Http.Controller {
             const result = await this.addTransaction.add({
                 type: request.type,
                 value: request.value,
-                date: moment(request.date).toDate()
+                date: moment(request.date).toDate(),
+                categoryId: request.categoryId
             })
 
             return ok(result)
@@ -43,6 +44,7 @@ export namespace AddTransactionController {
         value: number
         type: number
         date: Date
+        categoryId: number
     }
 
     export type Response = AddTransaction.Result

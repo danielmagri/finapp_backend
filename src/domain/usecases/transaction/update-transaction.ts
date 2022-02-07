@@ -8,6 +8,7 @@ export namespace UpdateTransaction {
         value?: number
         type?: number
         date?: Date
+        categoryId?: number
     }
 
     export type Result = number

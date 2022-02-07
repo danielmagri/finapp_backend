@@ -9,6 +9,7 @@ export namespace AddTransaction {
         value: number
         type: Transaction.TransactionType
         date: Date
+        categoryId: number
     }
 
     export type Result = Transaction.Model
