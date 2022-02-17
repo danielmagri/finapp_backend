@@ -7,8 +7,7 @@ export interface AddBudget {
 export namespace AddBudget {
     export type Params = {
         budgetValue: number
-        month: number
-        year: number
+        date: Date
         categoryId: number
     }
 

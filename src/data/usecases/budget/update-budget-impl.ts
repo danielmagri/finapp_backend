@@ -9,7 +9,7 @@ export class UpdateBudgetImpl implements UpdateBudget {
     async update(params: UpdateBudget.Params): Promise<UpdateBudget.Result> {
         const category = params.categoryId !== undefined ? { id: params.categoryId } : undefined
         delete params.categoryId
-        const input = { ...params, category: category, updatedAt: new Date() }
+        const input = { ...params, category: category }
 
         return await this.updateBudgetRepository.updateBudget(input)
     }

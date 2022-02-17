@@ -1,8 +1,7 @@
 import { DatabaseError } from '@/data/errors';
 import { AddBudgetRepository, DeleteBudgetRepository, FindBudgetsRepository, UpdateBudgetRepository } from '@/data/protocols';
-import { FindBudgets } from '@/domain/usecases';
 import { MySqlDatasource } from '@/infra/database/datasources/mysql-datasource';
-import { BudgetEntity } from '../database/entities';
+import * as entities from '@/infra/database/entities';
 
 export class BudgetDbRepository implements AddBudgetRepository, FindBudgetsRepository, UpdateBudgetRepository, DeleteBudgetRepository {
     constructor(
@@ -11,7 +10,7 @@ export class BudgetDbRepository implements AddBudgetRepository, FindBudgetsRepos
 
     async addBudget(params: AddBudgetRepository.Params): Promise<AddBudgetRepository.Result> {
         try {
-            const repo = this.database.getRepository(BudgetEntity)
+            const repo = this.database.getRepository(entities.BudgetEntity)
             const result = await repo.insert(params)
 
             return { ...result.generatedMaps[0]['id'], ...params }
@@ -20,10 +19,17 @@ export class BudgetDbRepository implements AddBudgetRepository, FindBudgetsRepos
         }
     }
 
-    async findBudget(): Promise<FindBudgets.Result> {
+    async findBudget(params: FindBudgetsRepository.Params): Promise<FindBudgetsRepository.Result> {
         try {
-            const repo = this.database.getRepository(BudgetEntity)
-            const result = await repo.find()
+            const repo = this.database.getRepository(entities.BudgetEntity)
+
+            const result = await repo.query(`SELECT
+            date, budgetValue, spentValue,
+                sum(budgetValue + spentValue) OVER (PARTITION BY categoryId 
+                                     ORDER BY date 
+                                         ROWS 2 PRECEDING) AS remainingValue
+            FROM budgets 
+            ORDER BY date;`)
 
             return result
         } catch (error) {
@@ -33,7 +39,7 @@ export class BudgetDbRepository implements AddBudgetRepository, FindBudgetsRepos
 
     async updateBudget(params: UpdateBudgetRepository.Params): Promise<UpdateBudgetRepository.Result> {
         try {
-            const repo = this.database.getRepository(BudgetEntity)
+            const repo = this.database.getRepository(entities.BudgetEntity)
 
             Object.keys(params).forEach(key => params[key] === undefined && delete params[key])
 
@@ -47,7 +53,7 @@ export class BudgetDbRepository implements AddBudgetRepository, FindBudgetsRepos
 
     async deleteBudget(params: DeleteBudgetRepository.Params): Promise<DeleteBudgetRepository.Result> {
         try {
-            const repo = this.database.getRepository(BudgetEntity)
+            const repo = this.database.getRepository(entities.BudgetEntity)
             const result = await repo.delete(params)
 
             return result.affected

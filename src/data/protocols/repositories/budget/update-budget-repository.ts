@@ -9,8 +9,7 @@ export namespace UpdateBudgetRepository {
     export type Params = {
         id: number
         budgetValue?: number
-        categoryId?: number
-        updatedAt: Date
+        category: { id: number }
     }
     export type Result = UpdateBudget.Result
 }

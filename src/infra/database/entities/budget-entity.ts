@@ -1,26 +1,25 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { CategoryEntity } from "."
+import { AfterUpdate, Check, Column, CreateDateColumn, Entity, Index, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { CategoryEntity, TransactionEntity } from "."
 
 @Entity({ name: 'budgets' })
+@Check(`DAY("date") = 1`)
 export class BudgetEntity {
-    @PrimaryGeneratedColumn()
-    id!: number
+    @PrimaryColumn({ name: 'date' })
+    date!: Date
 
-    @Column({ name: 'budgetValue', type: "float", precision: 2 })
+    @Column({ name: 'budgetValue', type: "float", precision: 2, default: 0 })
     budgetValue!: number
 
-    @Column({ name: 'month' })
-    month!: number
+    @Column({ name: 'spentValue', type: "float", precision: 2, default: 0 })
+    spentValue!: number
 
-    @Column({ name: 'year' })
-    year!: number
-
-    @ManyToOne(() => CategoryEntity, { nullable: false })
+    @ManyToOne(() => CategoryEntity, { eager: true, nullable: false, primary: true })
     category!: CategoryEntity
 
-    @Column({ name: 'createdAt' })
+    @CreateDateColumn()
     createdAt!: Date
 
-    @Column({ name: 'updatedAt' })
+    @UpdateDateColumn()
     updatedAt!: Date
+
 }

@@ -7,6 +7,6 @@ export const applyBudgetRoutes = (router: Router): void => {
   router.post('/budgets', adaptRoute(makeAddBudgetController()))
   router.get('/budgets', adaptRoute(makeFindBudgetsController()))
   router.put('/budgets/:id', adaptRoute(makeUpdateBudgetController()))
-  router.delete('/budgets/:id', adaptRoute(makeDeleteBudgetController()))
+  router.delete('/budgets', adaptRoute(makeDeleteBudgetController()))
 
 }

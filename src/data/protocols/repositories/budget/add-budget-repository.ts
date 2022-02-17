@@ -7,11 +7,7 @@ export interface AddBudgetRepository {
 export namespace AddBudgetRepository {
     export type Params = {
         budgetValue: number
-        month: number
-        year: number
-        categoryId: number
-        createdAt: Date
-        updatedAt: Date
+        date: Date
     }
     export type Result = AddBudget.Result
 }

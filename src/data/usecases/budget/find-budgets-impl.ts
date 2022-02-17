@@ -6,8 +6,8 @@ export class FindBudgetsImpl implements FindBudgets {
         private readonly findBudgetsRepository: FindBudgetsRepository
     ) { }
 
-    async find(): Promise<FindBudgets.Result> {
-        return await this.findBudgetsRepository.findBudget()
+    async find(params: FindBudgets.Params): Promise<FindBudgets.Result> {
+        return await this.findBudgetsRepository.findBudget(params)
     }
 
 }

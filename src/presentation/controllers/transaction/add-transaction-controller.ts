@@ -43,7 +43,7 @@ export namespace AddTransactionController {
     export type Request = {
         value: number
         type: number
-        date: Date
+        date: string
         categoryId: number
     }
 

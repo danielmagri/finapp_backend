@@ -20,8 +20,7 @@ export class AddBudgetController implements Http.Controller {
 
             const result = await this.addBudget.add({
                 budgetValue: request.budgetValue,
-                month: request.month,
-                year: request.year,
+                date: moment(request.date).toDate(),
                 categoryId: request.categoryId
             })
 
@@ -42,8 +41,7 @@ export class AddBudgetController implements Http.Controller {
 export namespace AddBudgetController {
     export type Request = {
         budgetValue: number
-        month: number
-        year: number
+        date: string
         categoryId: number
     }
 

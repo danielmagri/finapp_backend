@@ -2,10 +2,10 @@ import { Category } from ".";
 
 export namespace Budget {
     export interface Model {
-        id: number
+        date: Date
         budgetValue: number
-        month: number
-        year: number
+        spentValue: number
+        remainingValue: number
         category: Category.Model
         createdAt: Date
         updatedAt: Date

@@ -8,8 +8,8 @@ export class AddBudgetImpl implements AddBudget {
 
     async add(params: AddBudget.Params): Promise<AddBudget.Result> {
         const category = { id: params.categoryId }
-        delete params.categoryId
-        const input = { ...params, category: category, createdAt: new Date(), updatedAt: new Date() }
+        const input = { ...params, category: category }
+        delete input.categoryId
 
         return await this.addBudgetRepository.addBudget(input)
     }

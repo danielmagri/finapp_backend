@@ -9,9 +9,7 @@ export namespace AddTransactionRepository {
     value: number
     type: number
     date: Date
-    categoryId: number
-    createdAt: Date
-    updatedAt: Date
+    category: { id: number }
   }
   export type Result = AddTransaction.Result
 }

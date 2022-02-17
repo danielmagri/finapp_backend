@@ -13,7 +13,8 @@ export class DeleteBudgetController implements Http.Controller {
     async handle(request: DeleteBudgetController.Request): Promise<Http.Response<DeleteBudgetController.Response>> {
         try {
             const result = await this.deleteBudget.delete({
-                id: request.id,
+                month: request.month,
+                year: request.year
             })
 
             return ok(result)
@@ -32,7 +33,8 @@ export class DeleteBudgetController implements Http.Controller {
 
 export namespace DeleteBudgetController {
     export type Request = {
-        id: number
+        month: number
+        year: number
     }
 
     export type Response = DeleteBudget.Result

@@ -4,8 +4,9 @@ export interface DeleteBudget {
 
 export namespace DeleteBudget {
     export type Params = {
-        id: number
+        month: number
+        year: number
     }
 
-    export type Result = number | null
+    export type Result = number
 }

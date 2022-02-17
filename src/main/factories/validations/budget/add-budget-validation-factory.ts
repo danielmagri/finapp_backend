@@ -5,12 +5,12 @@ import { AddBudgetController } from '@/presentation/controllers'
 export const makeAddBudgetValidation = (): CompositeValidation<AddBudgetController.Request> => {
     const requiredValidator = new RequiredValidator()
     const numberValidator = new TypeValidator('number')
+    const stringValidator = new TypeValidator('string')
 
     return new CompositeValidation([
-        new RequiredValidation(requiredValidator, ['budgetValue', 'month', 'year', 'categoryId']),
+        new RequiredValidation(requiredValidator, ['budgetValue', 'date', 'categoryId']),
         new ObjectKeyValidation(numberValidator, 'budgetValue'),
-        new ObjectKeyValidation(numberValidator, 'month'),
-        new ObjectKeyValidation(numberValidator, 'year'),
+        new ObjectKeyValidation(stringValidator, 'date'),
         new ObjectKeyValidation(numberValidator, 'categoryId'),
     ])
 }

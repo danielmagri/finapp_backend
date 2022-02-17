@@ -7,7 +7,7 @@ export interface DeleteBudgetRepository {
 
 export namespace DeleteBudgetRepository {
     export type Params = {
-        id: number
+        date: Date
     }
     export type Result = DeleteBudget.Result
 }

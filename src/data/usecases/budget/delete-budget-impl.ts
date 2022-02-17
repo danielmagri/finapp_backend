@@ -7,7 +7,7 @@ export class DeleteBudgetImpl implements DeleteBudget {
     ) { }
 
     async delete(params: DeleteBudget.Params): Promise<DeleteBudget.Result> {
-        return await this.deleteBudgetRepository.deleteBudget(params)
+        return await this.deleteBudgetRepository.deleteBudget({ date: new Date(params.year, params.month, 1) })
     }
 
 }
